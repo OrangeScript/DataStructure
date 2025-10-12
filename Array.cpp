@@ -129,6 +129,46 @@ void Reverse(char* array, int size)
         p++;q--;
     }
 }
+
+void AdjustArray(int arr[], int size)
+{
+    int* p = arr;
+    int* q = arr+size-1;
+    while(p < q)
+    {
+        while((*p &0x1) == 1) p++;
+        while((*q & 0x1) == 0 ) q--;
+        if(p > q)
+        return;
+        int tmp = *p;
+        *p = *q;
+        *q = tmp;
+        p++; q--;
+    }
+}
+
+int main()
+{
+    int arr[10] = {0};
+    srand(time(0));
+    for(int i = 0; i< 10; i++)
+    {
+        arr[i] = rand()%100;
+    }
+    for(int v : arr)
+    {
+        std::cout << v << " ";
+    }
+    std::cout << std::endl;
+    AdjustArray(arr,10);
+    for(int v : arr)
+    {
+        std::cout << v << " ";
+    }
+    std::cout << std::endl;
+}
+
+#if 0
 int main()
 {
     char arr[] = "hello world";
@@ -137,3 +177,6 @@ int main()
 
     std::cout << arr << std::endl;
 }
+#endif
+
+
