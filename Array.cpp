@@ -96,6 +96,7 @@ public:
     }
 };
 
+#if 0
 int main()
 {
     Array arr;
@@ -111,4 +112,28 @@ int main()
     arr.show();
     arr.insert(10,200);
     arr.show();
+}
+#endif
+
+#include <string.h>
+void Reverse(char* array, int size)
+{
+    char* p = array;
+    char* q = array + size -1;
+    int val;
+    while(p < q)
+    {
+        val = *p;
+        *p = *q;
+        *q = val;
+        p++;q--;
+    }
+}
+int main()
+{
+    char arr[] = "hello world";
+    
+    Reverse(arr, strlen(arr));
+
+    std::cout << arr << std::endl;
 }
