@@ -47,6 +47,46 @@ public:
         n->next_ = head_->next_;
         head_->next_ = n;
     }
+    
+    void Remove(int val)
+    {
+        Node* p = head_->next_, *q = head_;
+        while(p != nullptr)
+        {
+            if(p->data_ != val)
+            {   
+                q = p;
+                p = p->next_;
+                
+            }
+            else
+            {
+                q->next_ = p->next_;
+                delete[] p;
+                return;
+            }
+        }
+    }
+
+    void RemoveAll(int val)
+    {
+        Node* p = head_->next_, *q = head_;
+        while(p != nullptr)
+        {
+            if(p->data_ != val)
+            {   
+                q = p;
+                p = p->next_;
+                
+            }
+            else
+            {
+                q->next_ = p->next_;
+                delete[] p;
+                p = q->next_;
+            }
+        }
+    }
 
     void Show()
     {
@@ -56,6 +96,7 @@ public:
             std::cout << p->data_ << " ";
             p = p->next_;
         }
+        std::cout << std::endl;
     }
 };
 
@@ -71,5 +112,15 @@ int main()
     }
     std::cout << std::endl;
     link.Show();
+    link.InsertHead(23);
+    
+    link.InsertHead(23);
+    
+    link.InsertTail(23);
+    link.Show();
 
+    link.Remove(23);
+    link.Show();
+    link.RemoveAll(23);
+    link.Show();
 }
