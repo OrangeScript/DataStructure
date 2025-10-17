@@ -24,7 +24,13 @@ public:
     ~Clink()
     {
         //release nodes
-
+        Node* p = head_->next_, *q = head_;
+        while(p != nullptr)
+        {
+            q = p->next_;
+            delete p;
+            p = q;
+        }
     }
 
 public:
@@ -82,7 +88,7 @@ public:
             else
             {
                 q->next_ = p->next_;
-                delete[] p;
+                delete p;
                 p = q->next_;
             }
         }
