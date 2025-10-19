@@ -62,9 +62,75 @@ private:
     }
 };
 
+
+class LinkStack
+{
+private:
+    struct Node
+    {
+        Node(int data = 0)
+            : data_(data)
+            , next_(nullptr)
+            {}
+        int data_;
+        Node* next_;
+    };
+    Node* head_;
+
+public:
+    LinkStack()
+    {   
+        head_ = new Node;
+    }
+
+    ~LinkStack()
+    {
+        Node* p = head_;
+        while(p != nullptr)
+        {
+            head_ = head_->next_;
+            delete p;
+            p = head_;
+        }
+    }
+
+public:
+    void push(int val)
+    {
+        Node* p = new Node(val);
+        p->next_ = head_->next_;
+        head_->next_ = p;
+    }
+
+    void pop()
+    {
+        if(head_->next_ == nullptr)
+        {
+            throw "stack is empty";
+        }
+        Node* p = head_->next_;
+        head_->next_ = p->next_;
+        delete p;
+    }
+
+    int top() const
+    {
+        if(head_->next_ == nullptr)
+        {
+            throw "empty";
+        }
+        return head_->next_->data_;
+    }
+
+    bool empty() const
+    {
+        return head_->next_ == nullptr;
+    }
+};
+
 int main()
 {
-    SeqStack s;
+    LinkStack s;
     int arr[] = {12,2,45,56,7,8,12};
     for(int v: arr)
     {
@@ -73,7 +139,8 @@ int main()
 
     while(!s.empty())
     {
-        std::cout << s.pop() << std::endl;
+        std::cout << s.top() << std::endl;
+        s.pop();
     }
 
     s.top();
