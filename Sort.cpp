@@ -90,7 +90,7 @@ void Print(int* arr, int size)
 }
 
 #include <chrono>
-
+#if 0
 int main()
 {
     int arr[1000];
@@ -121,6 +121,73 @@ int main()
     std::cout << BinarySearchRecurse(arr,0,size,6774) <<std::endl;
     std::cout << BinarySearchRecurse(arr,0,size,222) <<std::endl;
 }
+
+#endif
+void InsertSort(int arr[], int size);
+void ShellSort(int arr[], int size);
+void SelectionSort(int arr[], int size);
+void BubbleSort(int arr[], int length);
+#if 0
+int main()
+{
+     int arr[10];
+    srand(time(NULL));
+    int size = sizeof(arr)/sizeof(int);
+    for(int i = 0; i < size; i ++)
+    {
+        arr[i] = rand()%100 + 1;
+    }
+    Print(arr,size);
+    SelectionSort(arr,size);
+    Print(arr,size);
+    Print(arr,size);
+}
+#endif
+
+#define COUNT 100000
+int main()
+{
+    int arr[COUNT],brr[COUNT],crr[COUNT],drr[COUNT];
+    srand(time(NULL));
+
+    for(int i = 0; i < COUNT; i++)
+    {
+        int val = rand() % COUNT;
+        arr[i] = val;
+        brr[i] = val;
+        crr[i] = val;
+        drr[i] = val;
+    }
+
+    clock_t begin,end;
+    begin = clock();
+    BubbleSort(arr,COUNT);
+    end = clock();
+    std::cout << "Bubble Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    << "s" << std::endl;
+
+    
+    begin = clock();
+    SelectionSort(brr,COUNT);
+    end = clock();
+    std::cout << "Selection Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    << "s" << std::endl;
+
+    
+    begin = clock();
+    InsertSort(crr,COUNT);
+    end = clock();
+    std::cout << "Insert Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    << "s" << std::endl;
+
+    
+    begin = clock();
+    ShellSort(drr,COUNT);
+    end = clock();
+    std::cout << "Shell Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    << "s" << std::endl;
+}
+
 void InsertSort(int arr[], int size) {
     for(int i = 1; i < size; i++) {
         int key = arr[i]; 
@@ -131,5 +198,47 @@ void InsertSort(int arr[], int size) {
             j--;
         }
         arr[j + 1] = key; 
+    }
+}
+
+void swap1(int arr[], int l, int r)
+{
+    int tmp = arr[l];
+    arr[l] = arr[r];
+    arr[r] = tmp;
+}
+
+void SelectionSort(int arr[], int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        int min_index = i;
+        for(int j = i ; j < size; j++)
+        {
+            if(arr[j] < arr[min_index])
+            {
+                min_index = j;
+            }
+        }
+        swap1(arr,min_index,i);
+    }
+}
+
+void ShellSort(int arr[], int size)
+{
+    int gap = size/2;
+    for(; gap > 0; gap /= 2)
+    {
+        
+            for(int j = gap; j < size; j ++)
+            {
+                int val = arr[j];
+                int k = j - gap;
+                while(k >= 0 && arr[k] > val) {
+                    arr[k + gap] = arr[k];
+                    k -= gap;
+                }
+                arr[k + gap] = val; 
+            }
     }
 }
