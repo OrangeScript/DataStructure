@@ -173,6 +173,7 @@ void HeapSort_rubbish(int arr[],int size)
 }
 #include <time.h>
 #include <stdlib.h>
+#if 0
 int main()
 {
     srand(time(NULL));
@@ -193,3 +194,4 @@ int main()
 
     std::cout << std::endl;
 }
+#endif

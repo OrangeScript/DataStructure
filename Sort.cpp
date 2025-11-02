@@ -88,7 +88,7 @@ void Print(int* arr, int size)
     }
     std::cout << std::endl;
 }
-
+#include "Heap.h"
 #include <chrono>
 #if 0
 int main()
@@ -148,11 +148,20 @@ int main()
 }
 #endif
 
-#define COUNT 30
-#if 0
+//#if 0
 int main()
 {
-    int arr[COUNT],brr[COUNT],crr[COUNT],drr[COUNT];
+    int COUNT ;
+    std::cin >> COUNT;
+    
+    int* arr = new int[COUNT];
+    
+    int* brr = new int[COUNT];
+    
+    int* crr = new int[COUNT];
+    
+    int* drr = new int[COUNT];
+    //int arr[COUNT],brr[COUNT],crr[COUNT],drr[COUNT];
     srand(time(NULL));
 
     for(int i = 0; i < COUNT; i++)
@@ -166,23 +175,23 @@ int main()
 
     clock_t begin,end;
     begin = clock();
-    QuickSort(arr,0,COUNT);
+    QuickSort(arr,0,COUNT - 1);
     end = clock();
-    std::cout << "Bubble Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    std::cout << "Quick Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
     << "s" << std::endl;
 
     
     begin = clock();
-    SelectionSort(brr,COUNT);
+    MergeSort(brr,0,COUNT - 1);
     end = clock();
-    std::cout << "Selection Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    std::cout << "Merge Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
     << "s" << std::endl;
 
     
     begin = clock();
-    InsertSort(crr,COUNT);
+    HeapSort(crr,COUNT);
     end = clock();
-    std::cout << "Insert Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
+    std::cout << "Heap Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
     << "s" << std::endl;
 
     
@@ -191,9 +200,13 @@ int main()
     end = clock();
     std::cout << "Shell Sort spend:" << (end - begin) * 1.0 /CLOCKS_PER_SEC 
     << "s" << std::endl;
+    delete [] arr;
+    delete [] brr;
+    delete [] crr;
+    delete [] drr;
 }
-#endif
-//#if 0
+//#endif
+#if 0
 int main()
 {
     
@@ -209,10 +222,10 @@ int main()
     arr[20] = -123;
     arr[2] = -45;
     Print(arr,COUNT);
-    RadixSort(arr,COUNT);
+    HeapSort(arr,COUNT);
     Print(arr,COUNT);
 }
-//#endif
+#endif
 
 void InsertSort(int arr[], int size) {
     for(int i = 1; i < size; i++) {
@@ -275,7 +288,7 @@ void MergeSort(int arr[], int left, int right)
 }
 int Partition(int arr[], int left, int right);
 int Partition_Hoare(int a[], int left, int right);
-void swap1(int arr[], int l, int r);
+
 void QuickSort(int arr[],int left, int right)
 {
     if(left >= right)
@@ -316,12 +329,6 @@ int Partition_Hoare(int a[], int left, int right){
     /*   i等于j时跳出循环 当前基准值此时在下标为i的位置(合适的位置)   */
     swap1(a,left, i);	                 //最左边的元素变为处于当前合适位置的元素,把基准值放在合适位置                                                 
     return i;                                  //返回合适位置(i,j都可以)
-}
-void swap1(int arr[], int l, int r)
-{
-    int tmp = arr[l];
-    arr[l] = arr[r];
-    arr[r] = tmp;
 }
 
 void SelectionSort(int arr[], int size)
